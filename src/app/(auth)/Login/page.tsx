@@ -42,6 +42,7 @@ const LoginPage = () => {
     if (error) {
       form.reset();
       setSubmitError(error.message);
+      return;
     }
 
     router.replace("/dashboard");
@@ -89,7 +90,7 @@ const LoginPage = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type="email" placeholder="Password" {...field} />
+                <Input type="password" placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -109,6 +110,12 @@ const LoginPage = () => {
             <Loader2Icon className="animate-spin h-6 w-6" />
           )}
         </Button>
+        <span className="self-container">
+          Dont have an account?{" "}
+          <Link href="/signup" className="text-primary ml-1">
+            Sign Up
+          </Link>
+        </span>
       </form>
     </Form>
   );
