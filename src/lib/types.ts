@@ -10,7 +10,7 @@ export const FormSchema = z.object({
 
 export const SignUpFormSchema = z
   .object({
-    email: z.string().describe("email").email({ message: "Invalid Email" }),
+    email: z.string().describe("Email").email({ message: "Invalid Email" }),
     password: z
       .string()
       .describe("Password")
