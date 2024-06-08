@@ -421,7 +421,18 @@ export interface Database {
 export type workspace = InferSelectModel<typeof workspaces>;
 export type User = InferSelectModel<typeof users>;
 export type Folder = InferSelectModel<typeof folders>;
-export type File = InferSelectModel<typeof files>;
+// export type File = InferSelectModel<typeof files>;
+export interface File {
+  id: string;
+  created_at: string;
+  title: string;
+  icon_id: string;
+  data: string | null;
+  in_trash: string | null;
+  banner_url: string | null;
+  workspace_id: string;
+  folder_id: string;
+}
 export type Product = InferSelectModel<typeof products>;
 export type Price = InferSelectModel<typeof prices> & { products?: Product };
 export type Customer = InferSelectModel<typeof customers>;

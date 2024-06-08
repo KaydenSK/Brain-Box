@@ -337,20 +337,10 @@ const AppStateProvider: React.FC<AppStateProviderProps> = ({ children }) => {
         console.log(filesError);
       }
       if (!data) return;
-    //   const mappedData: File[] = data.map((file) => ({
-    //     id: file.id,
-    //     data: file.data || null,
-    //     created_at: file.created_at || null,
-    //     title: file.title,
-    //     icon_id: file.icon_id,
-    //     in_trash: file.in_trash || null,
-    //     banner_url: file.banner_url || null,
-    //     workspace_id: file.workspace_id || null,
-    //     folder_id: file.folder_id || null,
-    //   }));
+     
       dispatch({
         type: 'SET_FILES',
-        payload: { workspaceId, files: data, folderId },
+        payload: { workspaceId, files: data as File[], folderId },
       });
     };
     fetchFiles();
@@ -369,8 +359,6 @@ const AppStateProvider: React.FC<AppStateProviderProps> = ({ children }) => {
   );
 };
 
-export default AppStateProvider;
-
 export const useAppState = () => {
   const context = useContext(AppStateContext);
   if (!context) {
@@ -378,3 +366,5 @@ export const useAppState = () => {
   }
   return context;
 };
+
+export default AppStateProvider;
