@@ -25,12 +25,11 @@ export const workspacesRelations = relations(workspaces, ({many}) => ({
 	folders: many(folders),
 }));
 
-export const usersRelations = relations(users, ({one, many}) => ({
+export const usersRelations = relations(users, ({one}) => ({
 	usersInAuth: one(usersInAuth, {
 		fields: [users.id],
 		references: [usersInAuth.id]
 	}),
-	subscriptions: many(subscriptions),
 }));
 
 export const usersInAuthRelations = relations(usersInAuth, ({many}) => ({
@@ -77,9 +76,5 @@ export const subscriptionsRelations = relations(subscriptions, ({one}) => ({
 	usersInAuth: one(usersInAuth, {
 		fields: [subscriptions.user_id],
 		references: [usersInAuth.id]
-	}),
-	user: one(users, {
-		fields: [subscriptions.user_id],
-		references: [users.id]
 	}),
 }));
