@@ -4,6 +4,7 @@ import { z } from "zod";
 import { FormSchema } from "../types";
 import { cookies } from "next/headers";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { NextResponse } from "next/server";
 
 export async function actionLoginUser({
   email,
@@ -31,6 +32,8 @@ export async function actionSignUpUser({
 
   if (data?.length) return { error: { message: "User Already Exists.", data } };
 
+  console.log(email, password);
+
   const response = await supabase.auth.signUp({
     email,
     password,
@@ -39,5 +42,11 @@ export async function actionSignUpUser({
     },
   });
 
-  return response;
+  // Ensure the function returns an object
+  if (response.error) {
+    console.log(response.error);
+    return { error: response.error };
+  }
+
+  return { data: response };
 }

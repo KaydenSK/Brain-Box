@@ -22,6 +22,20 @@
       "when": 1716534083207,
       "tag": "0002_bouncy_stick",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1717763722137,
+      "tag": "0003_smiling_dragon_lord",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1718029428435,
+      "tag": "0004_adorable_wolfpack",
+      "breakpoints": true
     }
   ]
 }

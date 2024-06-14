@@ -1,13 +1,13 @@
-'use client';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
-import React from 'react';
+"use client";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
+} from "@/components/ui/popover";
 
 interface EmojiPickerProps {
   children: React.ReactNode;
@@ -16,13 +16,15 @@ interface EmojiPickerProps {
 
 const EmojiPicker: React.FC<EmojiPickerProps> = ({ children, getValue }) => {
   const route = useRouter();
-//   const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
-const Picker = dynamic(() => import('emoji-picker-react').then((mod) => mod.default), { ssr: false });
+  //   const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
+  const Picker = dynamic(
+    () => import("emoji-picker-react").then((mod) => mod.default),
+    { ssr: false }
+  );
 
   const onClick = (event: any, emojiObject: any) => {
-    const emoji = emojiObject.emoji;
     if (getValue) {
-      getValue(emoji);
+      getValue(emojiObject.emoji);
     }
   };
   return (

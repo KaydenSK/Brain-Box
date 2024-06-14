@@ -11,14 +11,14 @@ export const FormSchema = z.object({
 export const CreateWorkspaceFormSchema = z.object({
   workspaceName: z
     .string()
-    .describe('Workspace Name')
-    .min(1, 'Workspace name must be min of 1 character'),
-  logo: z.any(),
+    .describe("Workspace Name")
+    .min(1, "Workspace name must be min of 1 character"),
+  workspaceLogo: z.any(),
 });
 
 export const SignUpFormSchema = z
   .object({
-    email: z.string().describe("email").email({ message: "Invalid Email" }),
+    email: z.string().describe("Email").email({ message: "Invalid Email" }),
     password: z
       .string()
       .describe("Password")

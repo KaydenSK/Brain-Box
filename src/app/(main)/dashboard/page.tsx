@@ -1,50 +1,39 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import React from "react";
-
+import React, { use } from "react";
 import { cookies } from "next/headers";
 import db from "@/lib/supabase/db";
 import { redirect } from "next/navigation";
 import DashboardSetup from "@/components/dashboard-setup/dashboard-setup";
 import { getUserSubscriptionStatus } from "@/lib/supabase/queries";
 
-const DashboardPage = async() => {
-
+const DashboardPage = async () => {
   const supabase = createServerComponentClient({ cookies });
 
-const {data:{user},} = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-if (!user) return ;
+  if (!user) return;
+  const workSpace = await db.query.workspaces.findFirst({
+    where: (fields, { eq }) => eq(fields.workspace_owner, user.id),
+  });
 
- const workspace = await db.query.workspaces.findFirst({
-  where : (workspace, {eq} )=> eq(workspace.workspace_owner, user.id)
- });
+  const { data: subscription, error: subscriptionError } =
+    await getUserSubscriptionStatus(user.id);
 
- const { data: subscription, error: subscriptionError } =
- await getUserSubscriptionStatus(user.id);
+  if (subscriptionError) return <div>Error retrieving subscription status</div>;
 
-if (subscriptionError) return;
-
- if (!workspace) 
- return (
-<> <div
-        className="bg-background
-        h-screen
-        w-screen
-        flex
-        justify-center
-        items-center
-  "
-      >
+  if (!workSpace)
+    return (
+      <div className="bg-background h-screen w-screen flex justify-center items-center">
         <DashboardSetup
-          user={user}
           subscription={subscription}
-        />
-      </div></>
- );
+          user={user}
+        ></DashboardSetup>
+      </div>
+    );
 
- redirect(`/dashboard/${workspace.id}`);
-  
-
+  redirect(`/dashboard/${workSpace.id}`);
 };
 
 export default DashboardPage;

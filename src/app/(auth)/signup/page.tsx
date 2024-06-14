@@ -52,13 +52,15 @@ const SignUp = () => {
     defaultValues: { email: "", password: "", confirmPassword: "" },
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
-    formData
-  ) => {
-    const { error } = await actionSignUpUser(formData);
-    if (error) {
+  const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async ({
+    email,
+    password,
+  }) => {
+    const response = await actionSignUpUser({ email, password });
+
+    if (response.error) {
       form.reset();
-      setSubmitError(error.message);
+      setSubmitError(response.error.message);
       return;
     }
 
